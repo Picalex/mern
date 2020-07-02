@@ -6,11 +6,13 @@ import {Loader} from '../components/Loader'
 import {UserEdit} from '../components/UserEdit'
 
 
+
 export const UserEditPage = () => {
     const {token} = useContext(AuthContext)
     const {request, loading} = useHttp()
     const [user, setUser] = useState(null)
     const UserId = useParams().id
+
 
     const getUser = useCallback(async () => {
         try {
@@ -34,5 +36,8 @@ export const UserEditPage = () => {
         <>
             { !loading && user && <UserEdit user={user} /> }
         </>
+
+
+
     )
 }
