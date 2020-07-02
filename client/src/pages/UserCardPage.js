@@ -5,24 +5,25 @@ import {AuthContext} from '../context/AuthContext'
 import {Loader} from '../components/Loader'
 import {UserCard} from '../components/UserCard'
 
+
 export const UserCardPage = () => {
     const {token} = useContext(AuthContext)
     const {request, loading} = useHttp()
-    const [User, setUserLink] = useState(null)
+    const [user, setUser] = useState(null)
     const UserId = useParams().id
 
-    const getUserLink = useCallback(async () => {
+    const getUser = useCallback(async () => {
         try {
-            const fetched = await request(`/api/UserCard/${UserId}`, 'GET', null, {
+            const fetched = await request(`/api/user/info/${UserId}`, 'GET', null, {
                 Authorization: `Bearer ${token}`
             })
-            setLink(fetched)
+            setUser(fetched)
         } catch (e) {}
     }, [token, UserId, request])
 
     useEffect(() => {
-        getUserLink()
-    }, [getUserLink])
+        getUser()
+    }, [getUser])
 
     if (loading) {
         return <Loader />
@@ -30,7 +31,7 @@ export const UserCardPage = () => {
 
     return (
         <>
-            { !loading && User && <UserCard link={User} /> }
+            { !loading && user && <UserCard user={user} /> }
         </>
     )
 }

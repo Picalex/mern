@@ -1,4 +1,5 @@
 import React from 'react'
+import {NavLink,Link} from "react-router-dom";
 
 export const UsersList = ({ users }) => {
     if (!users.length) {
@@ -13,6 +14,7 @@ export const UsersList = ({ users }) => {
                 <th>Email</th>
                 <th>Password</th>
                 <th>Profile</th>
+                <th>Edit Profile</th>
             </tr>
             </thead>
 
@@ -23,7 +25,9 @@ export const UsersList = ({ users }) => {
                         <td>{index + 1}</td>
                         <td>{user.email}</td>
                         <td>{user.password}</td>
-                        <td></td>
+                        <td><Link to={`/user/info/${user._id}`}><i className="small material-icons"> sentiment_satisfied</i></Link></td>
+                        <td><NavLink to={`/user/edit/${user._id}`}><i className="small material-icons"> sentiment_satisfied</i></NavLink></td>
+
                     </tr>
                 )
             }) }

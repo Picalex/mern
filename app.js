@@ -12,6 +12,8 @@ app.use('/api/link', require('./routes/link.routes'))
 app.use('/api/user', require('./routes/user.routes'))
 app.use('/t', require('./routes/redirect.routes'))
 
+
+
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client', 'build')))
 
