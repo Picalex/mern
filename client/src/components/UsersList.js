@@ -25,8 +25,8 @@ export const UsersList = ({ users }) => {
                         <td>{index + 1}</td>
                         <td>{user.email}</td>
                         <td>{user.password}</td>
-                        <td><Link to={`/user/info/${user._id}`}><i className="small material-icons"> sentiment_satisfied</i></Link></td>
-                        <td><NavLink to={`/user/edit/${user._id}`}><i className="small material-icons"> sentiment_satisfied</i></NavLink></td>
+                        <td><Link to={`/user/info/${user._id}`}><i className="small material-icons"> account_box</i></Link></td>
+                        <td><NavLink to={`/user/edit/${user._id}`}><i className="small material-icons"> accessible</i></NavLink></td>
 
                     </tr>
                 )

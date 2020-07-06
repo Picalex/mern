@@ -1,99 +1,101 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
+import {useHistory, useParams} from "react-router-dom";
 import {AuthContext} from '../context/AuthContext'
+import {Loader} from '../components/Loader'
 
-export const AuthPage = () => {
-  const auth = useContext(AuthContext)
-  const message = useMessage()
-  const {loading, request, error, clearError} = useHttp()
-  const [form, setForm] = useState({
-    email: '', password: ''
-  })
+
+export const UserEditPage = ({}) => {
+    const {token} = useContext(AuthContext)
+    const {request, loading} = useHttp()
+    const message = useMessage()
+    const history = useHistory()
+    const UserId = useParams().id
+    const [form, setForm] = useState(
+        {name:'',surname:''}
+    )
+  const [testForm, setTestForm] = useState(
+      {name:'',surname:''}
+  )
+
+  const getUser = useCallback(async () => {
+    try {
+
+      const fetched = await request(`/api/user/info/${UserId}`, 'GET', null, {
+        Authorization: `Bearer ${token}`
+      })
+      console.log(1)
+      setForm(fetched)
+      setTestForm(fetched)
+    } catch (e) {}
+  }, [token, UserId, request])
+
+
+
+    const EditHandler = async () => {
+            if (form === testForm)
+            return(
+                message('пользователь не был изменен'),
+                history.push('/users')
+                  )
+
+      try {
+        const data = await request('/api/user/edit', 'POST', {...form},{
+          Authorization: `Bearer ${token}`
+        })
+        message(data.message)
+        history.push('/users')
+      } catch (e) {
+      }
+    }
+
+
+    const ChangeHandler = event => {
+      setForm({ ...form, [event.target.name]: event.target.value })
+    }
+
+
 
   useEffect(() => {
-    message(error)
-    clearError()
-  }, [error, message, clearError])
+    message()
+    getUser()
+  }, [ message,getUser])
 
   useEffect(() => {
     window.M.updateTextFields()
   }, [])
 
-  const changeHandler = event => {
-    setForm({ ...form, [event.target.name]: event.target.value })
-  }
 
-  const registerHandler = async () => {
-    try {
-      const data = await request('/api/auth/register', 'POST', {...form})
-      message(data.message)
-    } catch (e) {}
-  }
-
-  const loginHandler = async () => {
-    try {
-      const data = await request('/api/auth/login', 'POST', {...form})
-      auth.login(data.token, data.userId)
-    } catch (e) {}
+  if (loading) {
+    return <Loader />
   }
 
   return (
-    <div className="row">
-      <div className="col s6 offset-s3">
-        <h1>Вход на портал</h1>
-        <div className="card blue darken-1">
-          <div className="card-content white-text">
-            <span className="card-title">Авторизация</span>
-            <div>
-
-              <div className="input-field">
-                <input
-                  placeholder="Введите email"
-                  id="email"
-                  type="text"
-                  name="email"
-                  className="yellow-input"
-                  value={form.email}
-                  onChange={changeHandler}
-                />
-                <label htmlFor="email">Email</label>
-              </div>
-
-              <div className="input-field">
-                <input
-                  placeholder="Введите пароль"
-                  id="password"
-                  type="password"
-                  name="password"
-                  className="yellow-input"
-                  value={form.password}
-                  onChange={changeHandler}
-                />
-                <label htmlFor="email">Пароль</label>
-              </div>
-
-            </div>
-          </div>
-          <div className="card-action">
-            <button
-              className="btn yellow darken-4"
-              style={{marginRight: 10}}
-              disabled={loading}
-              onClick={loginHandler}
-            >
-              Войти
-            </button>
-            <button
-              className="btn grey lighten-1 black-text"
-              onClick={registerHandler}
-              disabled={loading}
-            >
-              Регистрация
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+      <form name="form">
+        <p><h6>Имя</h6>
+          <input
+              type="text"
+              name="name"
+              value={form.name}
+              placeholder={form.name}
+              onChange={ChangeHandler}
+          /></p>
+        <p><h6>Фамилия</h6>
+          <input
+              type="text"
+              name="surname"
+              value={form.surname}
+              placeholder={form.surname}
+              onChange={ChangeHandler}
+          /></p>
+        <button
+            className="btn grey lighten-1 black-text"
+            onClick={EditHandler}
+            //disabled={}
+        >
+          Изменить
+        </button>
+      </form>
   )
 }
