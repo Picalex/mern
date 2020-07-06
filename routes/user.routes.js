@@ -1,6 +1,7 @@
 const {Router} = require('express')
 const User = require('../models/User')
 const auth = require('../middleware/auth.middleware')
+const role = require('../middleware/role.middleware')
 const router = Router()
 
 
@@ -23,7 +24,7 @@ router.get('/info/:id', auth, async (req, res) => {
     }
 })
 
-router.post('/edit', auth, async (req, res) => {
+router.post('/edit', auth,role, async (req, res) => {
     try {
         const user = await User.findById(req.body._id)
         user.name=req.body.name

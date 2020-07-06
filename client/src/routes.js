@@ -8,7 +8,7 @@ import {UsersPage} from "./pages/UsersPage";
 import {UserCardPage} from "./pages/UserCardPage";
 import {UserEditPage} from "./pages/UserEditPage";
 
-export const useRoutes = isAuthenticated => {
+export const useRoutes = (isAuthenticated, role) => {
   if (isAuthenticated) {
     return (
       <Switch>
@@ -16,7 +16,8 @@ export const useRoutes = isAuthenticated => {
               <UserCardPage />
           </Route>
           <Route path="/user/edit/:id">
-              <UserEditPage />
+              {role==='Admin' &&  <UserEditPage />}
+              {role==='User' &&  <UserCardPage />}
           </Route>
         <Route path="/links" exact>
           <LinksPage />
