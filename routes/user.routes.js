@@ -38,5 +38,18 @@ router.post('/edit', auth,role, async (req, res) => {
 
 
 
+router.post('/admin', auth, role, async (req, res) => {
+    try {
+        const user = await User.findById(req.body._id)
+        user.name=req.body.name
+        user.surname=req.body.surname
+        user.email=req.body.email
+        user.role=req.body.role
+        await user.save()
+        res.status(201).json({ message: 'Пользователь изменен' })
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так сссссс, попробуйте снова' })
+    }
+})
 
 module.exports = router

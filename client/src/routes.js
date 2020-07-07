@@ -7,6 +7,8 @@ import {AuthPage} from './pages/AuthPage'
 import {UsersPage} from "./pages/UsersPage";
 import {UserCardPage} from "./pages/UserCardPage";
 import {UserEditPage} from "./pages/UserEditPage";
+import {AdminsPage} from "./pages/AdminsPage";
+
 
 export const useRoutes = (isAuthenticated, role) => {
   if (isAuthenticated) {
@@ -14,6 +16,9 @@ export const useRoutes = (isAuthenticated, role) => {
       <Switch>
           <Route path="/user/info/:id">
               <UserCardPage />
+          </Route>
+          <Route path="/adminka">
+              <AdminsPage />
           </Route>
           <Route path="/user/edit/:id">
               {role==='Admin' &&  <UserEditPage />}
