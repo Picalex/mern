@@ -28,9 +28,13 @@ export const AdminsList = ({ users }) => {
                         <td><Link to={`/user/info/${user._id}`}><i className="small material-icons"> account_box</i></Link></td>
                         <td><NavLink to={`/user/edit/${user._id}`}><i className="small material-icons"> accessible</i></NavLink></td>
                         <td>{user.role}</td>
-                        <select>
-                            <option value="test1">Значение 1</option>
-                        </select>
+                        <td>
+                            <form name="myForm">
+                                <input type="radio" name="roleblock" checked={user.role} value="User" /><span>User</span>
+                                <input type="radio" name="roleblock" value="Admin" /><span>Admin</span>
+                            </form>
+                            <div id="testBlock"></div>
+                        </td>
                     </tr>
                 )
             }) }

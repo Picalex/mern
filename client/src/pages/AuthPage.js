@@ -46,7 +46,6 @@ export const AuthPage = () => {
 
               <div className="input-field">
                 <input
-                  placeholder="Введите email"
                   id="email"
                   type="text"
                   name="email"
@@ -54,12 +53,11 @@ export const AuthPage = () => {
                   value={form.email}
                   onChange={changeHandler}
                 />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email" className="placeLabel">Email</label>
               </div>
 
               <div className="input-field">
                 <input
-                  placeholder="Введите пароль"
                   id="password"
                   type="password"
                   name="password"
@@ -67,7 +65,7 @@ export const AuthPage = () => {
                   value={form.password}
                   onChange={changeHandler}
                 />
-                <label htmlFor="email">Пароль</label>
+                <label htmlFor="password" className="placeLabel">Password</label>
               </div>
 
             </div>
