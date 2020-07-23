@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, config.get('jwtSecret'))
-       if ( decoded.role === 'Admin' || decoded.role === 'SuperAdmin'){
+       if ( decoded.roleAdmin === true || decoded.roleSuperAdmin === true){
             next()
        } else {
            return res.status(401).json({ message: 'нет доступа' })

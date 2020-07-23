@@ -21,8 +21,7 @@ export const useRoutes = (isAuthenticated, role) => {
               <AdminsPage />
           </Route>
           <Route path="/user/edit/:id">
-              {role==='Admin' &&  <UserEditPage />}
-              {role==='User' &&  <UserCardPage />}
+                  <UserEditPage />
           </Route>
         <Route path="/links" exact>
           <LinksPage />

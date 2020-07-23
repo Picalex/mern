@@ -36,6 +36,15 @@ router.post('/edit', auth,role, async (req, res) => {
     }
 })
 
+router.post('/remove', auth, role, async (req, res) => {
+    try {
+        const user = await User.findById(req.body._id)
+        await user.remove()
+        res.status(201).json({ message: 'Пользователь удален' })
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так сссссс, попробуйте снова' })
+    }
+})
 
 
 router.post('/admin', auth, role, async (req, res) => {

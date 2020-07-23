@@ -5,7 +5,7 @@ const schema = new Schema({
   password: {type: String, required: true},
   name: {type: String, required: true,default:'Ваше имя'},
   surname: {type: String, required: true,default:'Ваша фамилия'},
-  role: {type: String, default:'User', enum:['User','Admin','SuperAdmin']},
+  role: {type: String ,enum:['User','Admin','SuperAdmin'], default },
   links: [{ type: Types.ObjectId, ref: 'Link' }]
 })
 
