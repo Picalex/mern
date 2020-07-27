@@ -22,17 +22,8 @@ export const UserCard = ({ user }) => {
     return (
         <>
             <h5>Профиль</h5>
-            <p>Имя: {user.name}</p>
-            <p>Фамилия:{user.surname}</p>
-            <p>роль User: {RoleUser(user)}</p>
-            <p>роль Admin: {RoleAdmin(user)}</p>
-            <p>роль SuperAdmin: {RoleSuperAdmin(user)}</p>
-            <select>
-                <option>Grapefruit</option>
-                <option>Lime</option>
-                <option>Coconut</option>
-                <option>Mango</option>
-            </select>
+            <div id='Test'><p>Имя: {user.name}</p></div>
+            <div id='Test'><p>Фамилия:{user.surname}</p></div>
         </>
 
     )

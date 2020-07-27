@@ -1,5 +1,8 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 
+select{
+  display: flex;
+}
 
 input.yellow-input {
   border-bottom: 1px solid #fff!important;
@@ -17,4 +20,97 @@ input.yellow-input:focus + label {
 input.yellow-input:focus {
   border-bottom: 1px solid #ffeb3b!important;
   box-shadow: 0 1px 0 0 #ffeb3b!important;
+}
+
+#Test{
+  background-color: rgba(151, 53, 206, 0.59);
+  padding-top: 1px;
+  margin: 0px;
+  border-radius: 30px;
+  border:2px double #0a0303;
+  opacity: 90%;
+  text-align: center;
+  width: 200px;
+  height: 55px;
+}
+#Test:hover {
+color: #b30505;
+}
+#Button-1{
+  border-radius: 10px;
+}
+#logo{
+  border-radius: 10px;
+  text-align: center;
+}
+#logo2{
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 5px 5px 5px #0a0303;
+}
+body{
+    background-image: url("https://wallpaperscave.ru/images/thumbs/download/1920x1080/18/10-26/anime-clannad-94811.jpg");
+    color: #9c0505;
+}
+#List1{
+  padding-left: 40%;
+  height: 100px;
+}
+#purple{
+  color: #b41fb4;
+}
+input{
+  color: #b41fb4;
+}
+
+#box-fon1{
+  opacity: 80%;
+  background-color: rgba(238, 163, 86, 0.75);
+}
+#box-fon2{
+  width: 400px;
+}
+#box-fon{
+  width: 400px;
+  opacity: 80%;
+  background-color: #373746;
+}
+
+.box{
+  height: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+#button-2{
+  font-weight:bold;
+  background-color:#8E44AD;
+  color: #000000;
+  padding: 10px;
+  margin-left: 50px;
+  width: 300px;
+}
+
+#addrole{
+  padding-left: 90px;
+
+}
+#roletable{
+  width: 300px;
+  height: 60px;
+  margin-left: 50px;
+  margin-top: 30px;
+}
+#roleadd{
+  color:#8E44AD;
+  width: 200px;
+  height: 60px;
+  margin-top: 50px;
+  text-align: center;
+  margin-left: 100px;
+}
+#roleinput{
+  margin-bottom: 30px;
+  width: 300px;
+  margin-left: 50px;
+  font-weight:normal;
 }

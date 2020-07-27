@@ -1,12 +1,12 @@
 import React, {useContext, useState} from 'react'
 import {useHistory} from "react-router-dom";
+import {SelectRole} from "./SelectRole"
 
-
-export const AddRole = (props) => {
+export const AddUser = (props) => {
 
     const history = useHistory()
     const [form, setForm] = useState(
-        {name:''}
+        {email:'',password:''}
     )
     const ChangeHandler = event => {
         setForm({ ...form, [event.target.name]: event.target.value })
@@ -15,17 +15,25 @@ export const AddRole = (props) => {
     return (
         <>
         <form>
-            <p><h5 id='roleadd'>Добавление роли</h5>
+            <p><h5 id='roleadd'>Добавление пользователя</h5>
                 <input id='roleinput'
                     type="text"
-                    name="name"
-                    value={form.name}
-                    placeholder=' Введите роль '
+                    name="email"
+                    value={form.email}
+                    placeholder=' Введите email '
                     onChange={ChangeHandler}
+                /></p>
+            <p><input id='roleinput'
+                       type="text"
+                       name="password"
+                       value={form.password}
+                       placeholder=' Введите пароль '
+                       onChange={ChangeHandler}
                 /></p>
 
         </form>
-            <button id='button-2' onClick={()=>props.AddRoleHandler({...form})}>Добавить</button>
+            <SelectRole  />
+            <button id='button-2' onClick={()=>props.AddUserHandler({...form})}>Добавить</button>
         </>
 
     )

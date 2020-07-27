@@ -38,8 +38,8 @@ export const AuthPage = () => {
   return (
     <div className="row">
       <div className="col s6 offset-s3">
-        <h1>Вход на портал</h1>
-        <div className="card blue darken-1">
+        <h1 id='logo'>Вход на портал</h1>
+        <div id='logo2'  className="card blue darken-1">
           <div className="card-content white-text">
             <span className="card-title">Авторизация</span>
 
@@ -73,6 +73,7 @@ export const AuthPage = () => {
           </div>
           <div className="card-action">
             <button
+              id='Button-1'
               className="btn yellow darken-4"
               style={{marginRight: 10}}
               disabled={loading}
@@ -81,6 +82,7 @@ export const AuthPage = () => {
               Войти
             </button>
             <button
+               id='Button-1'
               className="btn grey lighten-1 black-text"
               onClick={registerHandler}
               disabled={loading}

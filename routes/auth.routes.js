@@ -80,12 +80,12 @@ router.post(
     }
 
     const token = jwt.sign(
-      { userId: user.id, role:user.role },
+      { userId: user.id },
       config.get('jwtSecret'),
       { expiresIn: '1h' }
     )
 
-    res.json({ token, userId: user.id ,role: user.role })
+    res.json({ token, userId: user.id })
 
   } catch (e) {
     res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })

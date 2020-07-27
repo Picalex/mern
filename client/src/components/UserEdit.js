@@ -16,8 +16,7 @@ export const UserEdit = ({ user }) => {
     )
     const EditHandler = async () => {
         try {
-            console.log({...form})
-            const data = await request('/api/user/edit', 'POST', {...form},{
+            const data = await request('/api/role/add', 'POST', {...form},{
                 Authorization: `Bearer ${token}`
             })
             message(data.message)
@@ -31,8 +30,8 @@ export const UserEdit = ({ user }) => {
     }
     return (
         <>
-        <form name="form">
-            <p><h6>Имя</h6>
+        <form  name="form">
+            <p id='List1'><h6>Имя</h6>
                 <input
                     type="text"
                     name="name"

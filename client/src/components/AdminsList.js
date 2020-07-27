@@ -5,6 +5,7 @@ import Select from 'react-select'
 import {AuthContext} from "../context/AuthContext";
 import {useHttp} from "../hooks/http.hook";
 import {useMessage} from "../hooks/message.hook";
+import {useAuth} from "../hooks/auth.hook";
 
 export const AdminsList = ({ users }) => {
     const {token} = useContext(AuthContext)
@@ -37,31 +38,15 @@ export const AdminsList = ({ users }) => {
                 Authorization: `Bearer ${token}`
             })
             message(data.message)
-            history.push('/users')
         } catch (e) {
         }
     }
     if (!users.length) {
         return <p className="center">пользователей пока нет</p>
     }
-    function RoleUsers(user) {
-        if (user.roleUser===true){
-            return (<td><i className="small material-icons">radio_button_checked</i></td>)
-        } else return (<td><i className="small material-icons">radio_button_unchecked</i></td>)
 
-    }
-    function RoleAdmins(user) {
-        if (user.roleAdmin===true){
-            return (<td><i className="small material-icons">radio_button_checked</i></td>)
-        } else return (<td><i className="small material-icons">radio_button_unchecked</i></td>)
 
-    }
-    function RoleSuperAdmins(user) {
-        if (user.roleSuperAdmin===true){
-            return (<td><i className="small material-icons">radio_button_checked</i></td>)
-        } else return (<td><i className="small material-icons">radio_button_unchecked</i></td>)
 
-    }
 
 
     return (
@@ -88,13 +73,11 @@ export const AdminsList = ({ users }) => {
                 <tr key={user._id}>
                     <td>{index + 1}</td>
                     <td>{user.email}</td>
-                    <td><Link to={`/user/info/${user._id}`}><i className="small material-icons"> account_box</i></Link></td>
-                    <td><NavLink to={`/user/edit/${user._id}`}><i className="small material-icons"> edit</i></NavLink></td>
-                    {RoleUsers(user)}
-                    {RoleAdmins(user)}
-                    {RoleSuperAdmins(user)}
+                    <td><Link to={`/user/info/${user._id}`}><i  id="purple"  className="small material-icons"> account_box</i></Link></td>
+                    <td><NavLink to={`/user/edit/${user._id}`}><i  id="purple"  className="small material-icons"> edit</i></NavLink></td>
+                    <td><li><NavLink to="/role">роли</NavLink></li></td>
                     <td>
-                        <button >Удалить</button>
+                        <button onClick={RemoveHandler(user)}>delete</button>
                     </td>
                 </tr>
             )

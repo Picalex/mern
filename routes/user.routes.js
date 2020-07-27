@@ -1,9 +1,10 @@
+const {check, validationResult} = require('express-validator')
 const {Router} = require('express')
 const User = require('../models/User')
 const auth = require('../middleware/auth.middleware')
 const role = require('../middleware/role.middleware')
 const router = Router()
-
+const bcrypt = require('bcryptjs')
 
 router.get('/', auth, async (req, res) => {
     try {
@@ -13,6 +14,44 @@ router.get('/', auth, async (req, res) => {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
 })
+
+router.post(
+    '/create',
+    [
+        check('email', 'Некорректный email').isEmail(),
+        check('password', 'Минимальная длина пароля 6 символов')
+            .isLength({ min: 6 })
+    ],
+    async (req, res) => {
+        try {
+            const errors = validationResult(req)
+
+            if (!errors.isEmpty()) {
+                return res.status(400).json({
+                    errors: errors.array(),
+                    message: 'Некорректный данные при регистрации'
+                })
+            }
+
+            const {email, password} = req.body
+
+            const candidate = await User.findOne({ email })
+
+            if (candidate) {
+                return res.status(400).json({ message: 'Такой пользователь уже существует' })
+            }
+
+            const hashedPassword = await bcrypt.hash(password, 12)
+            const user = new User({ email, password: hashedPassword })
+
+            await user.save()
+
+            res.status(201).json({ message: 'Пользователь создан' })
+
+        } catch (e) {
+            res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+        }
+    })
 
 
 router.get('/info/:id', auth, async (req, res) => {
@@ -38,7 +77,7 @@ router.post('/edit', auth,role, async (req, res) => {
 
 router.post('/remove', auth, role, async (req, res) => {
     try {
-        const user = await User.findById(req.body._id)
+        const user = await User.findById(req.body.id)
         await user.remove()
         res.status(201).json({ message: 'Пользователь удален' })
     } catch (e) {
@@ -53,7 +92,6 @@ router.post('/admin', auth, role, async (req, res) => {
         user.name=req.body.name
         user.surname=req.body.surname
         user.email=req.body.email
-        user.role=req.body.role
         await user.save()
         res.status(201).json({ message: 'Пользователь изменен' })
     } catch (e) {

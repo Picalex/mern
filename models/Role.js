@@ -1,13 +1,8 @@
 const {Schema, model, Types} = require('mongoose')
 
 const schema = new Schema({
-    id: {type: String, required: true, unique: true},
-    role:{type: String, required: true},
-    to: {type: String, required: true, unique: true},
-    code: {type: String, required: true, unique: true},
-    date: {type: Date, default: Date.now},
-    clicks: {type: Number, default: 0},
-    owner: {type: Types.ObjectId, ref: 'User'}
+    //id: {type: String, required: true, unique: true},
+    roleName:{type: String, required: true ,unique: true}
 })
 
-module.exports = model('Link', schema)
+module.exports = model('Role', schema)

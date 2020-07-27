@@ -8,12 +8,19 @@ import {UsersPage} from "./pages/UsersPage";
 import {UserCardPage} from "./pages/UserCardPage";
 import {UserEditPage} from "./pages/UserEditPage";
 import {AdminsPage} from "./pages/AdminsPage";
-
+import {RoleDashBoard} from "./pages/RoleDashBoard";
+import {UserDashBoard} from "./pages/UserDashBoard"
 
 export const useRoutes = (isAuthenticated, role) => {
   if (isAuthenticated) {
     return (
       <Switch>
+          <Route path="/userDash">
+              <UserDashBoard />
+          </Route>
+          <Route path="/roleDash">
+              <RoleDashBoard />
+          </Route>
           <Route path="/user/info/:id">
               <UserCardPage />
           </Route>

@@ -72,7 +72,7 @@ export const UserEditPage = ({}) => {
   }
 
   return (
-      <form name="form">
+      <form id='List1' name="form">
         <p><h6>Имя</h6>
           <input
               type="text"
