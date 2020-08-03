@@ -15,9 +15,10 @@ export const Navbar = () => {
   return (
     <nav>
       <div className="nav-wrapper purple darken-1" style={{ padding: '0 2rem' }}>
-        <span className="brand-logo">Сокращение ссылок</span>
+        <span className="brand-logo">Сайт</span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li><NavLink to="/adminka">Админка</NavLink></li>
+          <li><NavLink to="/Adminka">Админка</NavLink></li>
+          <li><NavLink to="/TestPage">Test</NavLink></li>
           <li><NavLink to="/RoleDash">Лист Ролей</NavLink></li>
           <li><NavLink to="/UserDash">Лист пользователей</NavLink></li>
           <li><NavLink to="/create">Создать</NavLink></li>

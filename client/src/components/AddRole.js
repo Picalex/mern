@@ -2,15 +2,18 @@ import React, {useContext, useState} from 'react'
 import {useHistory} from "react-router-dom";
 
 
+
 export const AddRole = (props) => {
 
     const history = useHistory()
     const [form, setForm] = useState(
         {name:''}
     )
+
     const ChangeHandler = event => {
-        setForm({ ...form, [event.target.name]: event.target.value })
+            setForm({ ...form, [event.target.name]: event.target.value })
     }
+
 
 
 
@@ -25,9 +28,13 @@ export const AddRole = (props) => {
                     placeholder=' Введите роль '
                     onChange={ChangeHandler}
                 /></p>
-
         </form>
-            <button id='button-2' onClick={()=>props.AddRoleHandler({...form})}>Добавить</button>
+            <button
+                id='button-2'
+                onClick={()=>props.AddRoleHandler({...form}) }
+            >
+                Добавить
+            </button>
         </>
 
     )

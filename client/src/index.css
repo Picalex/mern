@@ -72,6 +72,7 @@ input{
 }
 #box-fon{
   width: 400px;
+  height: 500px;
   opacity: 80%;
   background-color: #373746;
 }
@@ -91,6 +92,11 @@ input{
 }
 
 #addrole{
+  padding-left: 90px;
+  color:#8E44AD;
+
+}
+#roleform{
   padding-left: 90px;
 
 }

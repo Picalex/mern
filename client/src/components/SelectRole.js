@@ -1,37 +1,57 @@
-import React from "react";
-import 'materialize-css'
-import 'materialize-css/dist/css/materialize.min.css'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 
-export class SelectRole extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {value: null};
+import {Link, NavLink, useHistory} from 'react-router-dom'
+import {useHttp} from "../hooks/http.hook";
+import {AuthContext} from "../context/AuthContext";
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+
+export const SelectRole=(props)=> {
+    const history = useHistory()
+    const [roles, setRoles] = useState([])
+    const [name, setName] = useState()
+    const {loading, request} = useHttp()
+    const {token} = useContext(AuthContext)
+
+
+
+
+    const fetchRoles = useCallback(async () => {
+        try {
+            const fetched = await request('/api/role', 'GET', null, {
+                Authorization: `Bearer ${token}`
+            })
+            setRoles(fetched)
+
+        } catch (e) {}
+    }, [token, request])
+
+
+
+    function FindName(id,roles) {
+        roles.forEach(function (s) {
+            if (s._id===id){
+              setName(s.roleName)
+            }
+        })
+
+
     }
 
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
 
-    handleSubmit(event) {
-        event.preventDefault();
-    }
+    const array=props.user.roles
 
-    render() {
-        return (
-           <>
-               <form action="#">
-                   <p>
-                       <label>
-                           <input type="checkbox"/>
-                           <span>Red</span>
-                       </label>
-                   </p>
-                   
-               </form>
-           </>
-        );
-    }
+    return(
+            <>
+                { array.map((item,index) => {
+                    return (
+                        //{FindName(item,roles)}
+                        <p key={index}>{FindName(item,roles)}{name}</p>
+                    )
+                }) }
+            </>
+
+           )
+
+
+
 }

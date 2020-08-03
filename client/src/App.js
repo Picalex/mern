@@ -6,6 +6,7 @@ import {AuthContext} from './context/AuthContext'
 import {Navbar} from './components/Navbar'
 import {Loader} from './components/Loader'
 import 'materialize-css'
+import {RolesState} from "./context/Roles/RolesState";
 
 function App() {
   const {token, login, logout, userId, ready, role} = useAuth()
@@ -17,6 +18,7 @@ function App() {
   }
 
   return (
+      <RolesState>
     <AuthContext.Provider value={{
       token, login, logout, userId, isAuthenticated ,role
     }}>
@@ -27,6 +29,7 @@ function App() {
         </div>
       </Router>
     </AuthContext.Provider>
+      </RolesState>
   )
 }
 

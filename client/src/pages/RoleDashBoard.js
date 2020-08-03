@@ -14,7 +14,9 @@ export const RoleDashBoard = () => {
   const message = useMessage()
   const {token} = useContext(AuthContext)
   const [roles, setRoles] = useState([])
+  const [change, setChange] =useState(false)
 
+  const ListContext = React.createContext([])
   const fetchRoles = useCallback(async () => {
     try {
       const fetched = await request('/api/role', 'GET', null, {
@@ -31,24 +33,33 @@ export const RoleDashBoard = () => {
       const data = await request('/api/role/create', 'POST', {...form},{
         Authorization: `Bearer ${token}`
       })
+      setChange(true)
+      if (setChange){
+        fetchRoles()
+        setChange(false)
+      }
       message(data.message)
-      history.push('/RoleDash')
     } catch (e) {
       console.log(e)
     }
+    history.push('/RoleDash')
   }, [token, request, message])
-
 
   const RemoveRoleHandler = useCallback(async (role) => {
     try {
       const data = await request('/api/role/remove', 'POST', {role},{
         Authorization: `Bearer ${token}`
       })
+      setChange(true)
+      if (change){
+        fetchRoles()
+        setChange(false)
+      }
       message(data.message)
-      history.push('/role')
     } catch (e) {
       console.log(e)
     }
+    history.push('/RoleDash')
   }, [token, request, message])
 
 
@@ -64,15 +75,17 @@ export const RoleDashBoard = () => {
 
   return (
       <>
+        <ListContext.Provider>
         <div className="box">
             <div id='box-fon1'>
               <h2>Role List</h2>
               {!loading && <RoleList roles={roles} RemoveRoleHandler={RemoveRoleHandler}/>}
             </div>
             <div id='box-fon'>
-              {!loading && <AddRole  AddRoleHandler={AddRoleHandler} />}
+              {!loading && <AddRole  AddRoleHandler={AddRoleHandler}  />}
             </div>
         </div>
+        </ListContext.Provider>
       </>
   )
 }

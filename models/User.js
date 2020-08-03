@@ -6,7 +6,8 @@ const schema = new Schema({
   name: {type: String, required: true,default:'Ваше имя'},
   surname: {type: String, required: true,default:'Ваша фамилия'},
   links: [{ type: Types.ObjectId, ref: 'Link' }],
-  roles:[{type: Types.ObjectId, ref: 'Role'}]
+  roles:[{type: Types.ObjectId, ref: 'Role'}],
+  styles:[{type:String ,required:true ,default:'glaz'}]
 })
 
 module.exports = model('User', schema)

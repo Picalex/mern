@@ -9,6 +9,9 @@ export const UsersPage = () => {
     const {loading, request} = useHttp()
     const {token} = useContext(AuthContext)
 
+
+
+
     const fetchUsers = useCallback(async () => {
         try {
             const fetched = await request('/api/user', 'GET', null, {
@@ -18,6 +21,8 @@ export const UsersPage = () => {
         } catch (e) {}
     }, [token, request])
 
+
+
     useEffect(() => {
         fetchUsers()
     }, [fetchUsers])
@@ -26,9 +31,10 @@ export const UsersPage = () => {
         return <Loader/>
     }
 
+
     return (
         <>
-            {!loading && <UsersList users={users} />}
+            {!loading && <UsersList users={users}  />}
         </>
     )
 }

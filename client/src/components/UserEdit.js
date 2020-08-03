@@ -20,10 +20,11 @@ export const UserEdit = ({ user }) => {
                 Authorization: `Bearer ${token}`
             })
             message(data.message)
-            history.push('/users')
+
         } catch (e) {
             console.log(e)
         }
+        history.push('/users')
     }
     const ChangeHandler = event => {
         setForm({ ...form, [event.target.name]: event.target.value })
