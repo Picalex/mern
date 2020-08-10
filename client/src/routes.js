@@ -1,8 +1,5 @@
 import React from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import {LinksPage} from './pages/LinksPage'
-import {CreatePage} from './pages/CreatePage'
-import {DetailPage} from './pages/DetailPage'
 import {AuthPage} from './pages/AuthPage'
 import {UsersPage} from "./pages/UsersPage";
 import {UserCardPage} from "./pages/UserCardPage";
@@ -22,11 +19,8 @@ export const useRoutes = (isAuthenticated, role) => {
           <Route path="/user/info/:id"  component={UserCardPage}/>
           <Route path="/Adminka"  component={AdminsPage}/>
           <Route path="/user/edit/:id"  component={UserEditPage}/>
-          <Route path="/links"  component={LinksPage}/>
-          <Route path="/create"  component={CreatePage}/>
-          <Route path="/detail/:id"  component={DetailPage}/>
           <Route path="/users"  component={UsersPage}/>
-                <Redirect to="/create" />
+                <Redirect to="/TestPage" />
       </Switch>
     )
   }

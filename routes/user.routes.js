@@ -6,7 +6,7 @@ const role = require('../middleware/role.middleware')
 const router = Router()
 const bcrypt = require('bcryptjs')
 
-router.get('/', auth, async (req, res) => {
+router.get('/', auth,role, async (req, res) => {
     try {
         const users = await User.find({})
         res.json(users)
@@ -63,7 +63,7 @@ router.get('/info/:id', auth, async (req, res) => {
     }
 })
 
-router.post('/edit', auth,role, async (req, res) => {
+router.post('/edit', auth, role, async (req, res) => {
     try {
         const user = await User.findById(req.body._id)
         user.name=req.body.name
@@ -75,7 +75,7 @@ router.post('/edit', auth,role, async (req, res) => {
     }
 })
 
-router.post('/remove', auth, role, async (req, res) => {
+router.post('/remove', auth,role,  async (req, res) => {
     try {
         const user = await User.findById(req.body.id)
         await user.remove()
@@ -93,6 +93,7 @@ router.post('/admin', auth, role, async (req, res) => {
         user.surname=req.body.surname
         user.email=req.body.email
         await user.save()
+
         res.status(201).json({ message: 'Пользователь изменен' })
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так сссссс, попробуйте снова' })

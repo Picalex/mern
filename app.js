@@ -9,9 +9,7 @@ app.use(express.json({ extended: true }))
 
 app.use('/api/role', require('./routes/role.routes'))
 app.use('/api/auth', require('./routes/auth.routes'))
-app.use('/api/link', require('./routes/link.routes'))
 app.use('/api/user', require('./routes/user.routes'))
-app.use('/t', require('./routes/redirect.routes'))
 
 
 
@@ -37,7 +35,7 @@ async function start() {
     console.log('bd Error', e.message)
   }}while (!mongoose.connect)
   try {
-    app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+    app.listen(PORT, () => console.log(`App has  been started on port ${PORT}...`))
   } catch (e) {
     console.log('Server Error', e.message)
     process.exit(1)

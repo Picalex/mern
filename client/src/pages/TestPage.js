@@ -1,6 +1,9 @@
-import React, { useContext, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {useHttp} from '../hooks/http.hook'
+import {useAuth} from "../hooks/auth.hook";
+import {AuthContext} from "../context/AuthContext";
+import {RolesContext} from '../context/Roles/RolesContext'
 
 
 
@@ -8,9 +11,22 @@ export const TestPage = () => {
     const lif = 23
     const {request, loading} = useHttp()
     const [link, setLink] = useState(null)
+    const [mas, setMas] = useState([])
     const linkId = useParams().id
+    const {token} = useContext(AuthContext)
+    const test = React.useContext(RolesContext)
 
     let arrObjects = []
+    const UserId = '5f21368cbc9f4b288c8f832f'
+    const fetchUser = useCallback(async () => {
+        try {
+            const fetched = await request(`/api/user/info/${UserId}`, 'GET', null, {
+                Authorization: `Bearer ${token}`
+            })
+            setMas(fetched)
+        } catch (e) {
+        }
+    }, [token, UserId, request])
 
     arrObjects[0] = {
         id: "1",
@@ -20,55 +36,50 @@ export const TestPage = () => {
         id: "2",
         name: "secondArrElement"
     }
+    useEffect(() => {
+        fetchUser()
+    }, [fetchUser])
 
-    const themes = {
-        light: {
-            foreground: "#000000",
-            background: "#eeeeee"
-        },
-        dark: {
-            foreground: "#ffffff",
-            background: "#222222"
+    const roles = []
+    roles[0] = {
+        id: "1",
+        name: "first"
+    }
+    roles[1] = {
+        id: "2",
+        name: "second"
+    }
+
+
+
+    const a = roles.map((role) => {
+        if (role.name === 'second') {
+            return role.name
         }
-    }
-    function Toolbar(props) {
-        return (
-            <div>
-
-                <ThemedButton />
-            </div>
-        )
-    }
-
-    function ThemedButton() {
-        const theme = useContext(ThemeContext)
-        console.log(theme)
-        return (
-            <button style={{ background: theme.background, color: theme.foreground }}>
-                Я стилизован     из контекста!
-            </button>
-        )
-    }
-    function Nameles(array) {
-    array.forEach(function (s) {
-        console.log(s.name)
     })
+
+
+
+
+    function Nameles(array) {
+        array.forEach(function (s) {
+            console.log(s.name)
+        })
     }
 
-    const ThemeContext = React.createContext(themes.light)
+    const asss = ['1', '2', '3', '4', '5']
 
 
-        return (
-            <ThemeContext.Provider value={themes.dark}>
-                <h5>test</h5>
-                {Nameles(arrObjects)}
-                <h5>{arrObjects[1].name}</h5>
-
-            </ThemeContext.Provider>
-        )
-
-
-
-
-
+    return (
+        <div>
+            <h5>TEST</h5>
+            <h5>{a}</h5>
+            <h5>LOL</h5>
+        </div>
+    )
 }
+
+
+
+
+

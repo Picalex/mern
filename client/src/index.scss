@@ -1,4 +1,6 @@
-@import "~materialize-css/dist/css/materialize.min.css";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap/scss/_navbar.scss";
+@import "~bootstrap/scss/bootstrap-reboot";
 
 select{
   display: flex;
@@ -49,7 +51,6 @@ color: #b30505;
   box-shadow: 5px 5px 5px #0a0303;
 }
 body{
-    background-image: url("https://wallpaperscave.ru/images/thumbs/download/1920x1080/18/10-26/anime-clannad-94811.jpg");
     color: #9c0505;
 }
 #List1{
@@ -78,7 +79,6 @@ input{
 }
 
 .box{
-  height: 300px;
   display: flex;
   justify-content: space-between;
 }
@@ -120,3 +120,20 @@ input{
   margin-left: 50px;
   font-weight:normal;
 }
+.left-table{
+
+}
+.table_wight{
+  width: 200px;
+  margin: auto;
+}
+.outer {
+  text-align: center;
+  border: 1px solid blue;
+}
+.inner {
+  width: 100px;
+  border: 1px solid red;
+}
+
+

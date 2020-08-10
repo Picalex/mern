@@ -62,9 +62,6 @@ export const UserEditPage = ({}) => {
     getUser()
   }, [ message,getUser])
 
-  useEffect(() => {
-    window.M.updateTextFields()
-  }, [])
 
 
   if (loading) {
@@ -73,7 +70,8 @@ export const UserEditPage = ({}) => {
 
   return (
       <form id='List1' name="form">
-        <p><h6>Имя</h6>
+          <h6>Имя</h6>
+        <p>
           <input
               type="text"
               name="name"
@@ -81,7 +79,8 @@ export const UserEditPage = ({}) => {
               placeholder={form.name}
               onChange={ChangeHandler}
           /></p>
-        <p><h6>Фамилия</h6>
+          <h6>Фамилия</h6>
+        <p>
           <input
               type="text"
               name="surname"
