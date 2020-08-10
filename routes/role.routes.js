@@ -24,6 +24,7 @@ router.post('/create', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
     try {
         const roles = await Role.find({})
+        console.log(1)
         res.json(roles)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })

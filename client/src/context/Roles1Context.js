@@ -2,7 +2,7 @@ import {createContext} from 'react'
 
 function noop() {}
 
-export const RolesContext = createContext({
+export const Roles1Context = createContext({
     roleId: null,
     roleName: null,
 })

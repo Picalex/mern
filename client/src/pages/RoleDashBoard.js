@@ -33,12 +33,8 @@ export const RoleDashBoard = () => {
       const data = await request('/api/role/create', 'POST', {...form},{
         Authorization: `Bearer ${token}`
       })
-      setChange(true)
-      if (setChange){
-        fetchRoles()
-        setChange(false)
-      }
       message(data.message)
+      fetchRoles()
     } catch (e) {
       console.log(e)
     }
@@ -50,12 +46,8 @@ export const RoleDashBoard = () => {
       const data = await request('/api/role/remove', 'POST', {role},{
         Authorization: `Bearer ${token}`
       })
-      setChange(true)
-      if (change){
-        fetchRoles()
-        setChange(false)
-      }
       message(data.message)
+      fetchRoles()
     } catch (e) {
       console.log(e)
     }

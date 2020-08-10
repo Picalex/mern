@@ -4,6 +4,7 @@ const config = require('config')
 const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
+const Roles = require('../models/Role')
 const router = Router()
 
 
@@ -67,6 +68,7 @@ router.post(
     const {email, password} = req.body
 
     const user = await User.findOne({ email })
+    const roles = await Roles.find({})
 
     if (!user) {
       return res.status(400).json({ message: 'Пользователь не найден' })
@@ -78,9 +80,13 @@ router.post(
     if (!isMatch) {
       return res.status(400).json({ message: 'Неверный пароль, попробуйте снова' })
     }
-
     const token = jwt.sign(
-      { userId: user.id },
+      {
+        userId: user.id,
+        userRoles: user.roles,
+        roles: roles
+
+      },
       config.get('jwtSecret'),
       { expiresIn: '111h' }
     )

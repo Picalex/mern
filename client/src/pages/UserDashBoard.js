@@ -3,9 +3,7 @@ import {useHttp} from '../hooks/http.hook'
 import {AuthContext} from '../context/AuthContext'
 import {useHistory} from 'react-router-dom'
 import {Loader} from "../components/Loader";
-import {RoleList} from "../components/RoleList";
 import {useMessage} from "../hooks/message.hook";
-import {AddRole} from "../components/AddRole";
 import {UsersList} from "../components/UsersList";
 import {AddUser} from "../components/AddUser";
 
@@ -20,20 +18,21 @@ export const UserDashBoard = () => {
 
 
 
-  const fetchRoles = useCallback(async () => {
+    const fetchRoles = useCallback(async () => {
         try {
             const fetched = await request('/api/role', 'GET', null, {
                 Authorization: `Bearer ${token}`
             })
             setRoles(fetched)
         } catch (e) {}
-        }, [token, request])
+    }, [token, request])
 
   const fetchUsers = useCallback(async () => {
     try {
       const fetched = await request('/api/user', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
+
       setUsers(fetched)
     } catch (e) {}
   }, [token, request])
@@ -44,23 +43,25 @@ export const UserDashBoard = () => {
                 Authorization: `Bearer ${token}`
             })
             message(data.message)
-            history.push('/userDash')
+            fetchUsers()
         } catch (e) {
             console.log(e)
         }
+        history.push('/UserDash')
     }, [token, request, message])
 
 
-    const RemoveUserHandler = useCallback(async (role) => {
+    const RemoveUserHandler = useCallback(async (user) => {
         try {
-            const data = await request('/api/role/remove', 'POST', {role},{
+            const data = await request('/api/user/remove', 'POST', {user},{
                 Authorization: `Bearer ${token}`
             })
             message(data.message)
-            history.push('/UserDash')
+            fetchUsers()
         } catch (e) {
             console.log(e)
         }
+        history.push('/UserDash')
     }, [token, request, message])
 
 
@@ -70,8 +71,8 @@ export const UserDashBoard = () => {
 
 
   useEffect(() => {
-    fetchUsers()
-    fetchRoles()
+      fetchRoles()
+        fetchUsers()
   }, [fetchUsers,fetchRoles])
 
 
@@ -83,15 +84,16 @@ export const UserDashBoard = () => {
 
   return (
       <>
-        <div className="box">
-            <div id='box-fon2'>
-              <h2>User List</h2>
-              {!loading && <UsersList users={users} />}
-            </div>
-            <div id='box-fon'>
-                {!loading && <AddUser users={users} roles={roles} AddUserHandler={AddUserHandler}/>}
-            </div>
-        </div>
+          <div >
+              <div className="row">
+                  <div className="col-8">
+                      {!loading && <UsersList users={users} roles={roles} RemoveUserHandler={RemoveUserHandler} />}
+                  </div>
+                  <div className="col-4 ">
+                      {!loading && <AddUser users={users} roles={roles} AddUserHandler={AddUserHandler}/>}
+                  </div>
+              </div>
+          </div>
       </>
   )
 }

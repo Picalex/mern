@@ -63,11 +63,12 @@ router.get('/info/:id', auth, async (req, res) => {
     }
 })
 
-router.post('/edit', auth,role, async (req, res) => {
+router.post('/edit', auth, role, async (req, res) => {
     try {
         const user = await User.findById(req.body._id)
         user.name=req.body.name
         user.surname=req.body.surname
+        user.roles=req.body.roles
         await user.save()
         res.status(201).json({ message: 'Пользователь изменен' })
     } catch (e) {
@@ -75,9 +76,9 @@ router.post('/edit', auth,role, async (req, res) => {
     }
 })
 
-router.post('/remove', auth, role, async (req, res) => {
+router.post('/remove', auth,role,  async (req, res) => {
     try {
-        const user = await User.findById(req.body.id)
+        const user = await User.findById(req.body.user._id)
         await user.remove()
         res.status(201).json({ message: 'Пользователь удален' })
     } catch (e) {
@@ -93,6 +94,7 @@ router.post('/admin', auth, role, async (req, res) => {
         user.surname=req.body.surname
         user.email=req.body.email
         await user.save()
+
         res.status(201).json({ message: 'Пользователь изменен' })
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так сссссс, попробуйте снова' })

@@ -61,7 +61,7 @@ export const AdminsList = ({ users }) => {
                     <td><NavLink to={`/user/edit/${user._id}`}><i  id="purple"  className="small material-icons"> edit</i></NavLink></td>
                     <td><li><NavLink to="/role">роли</NavLink></li></td>
                     <td>
-                        <button onClick={RemoveHandler(user)}>delete</button>
+                        
                     </td>
                 </tr>
             )
