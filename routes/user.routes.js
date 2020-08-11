@@ -6,7 +6,7 @@ const role = require('../middleware/role.middleware')
 const router = Router()
 const bcrypt = require('bcryptjs')
 
-router.get('/', auth, async (req, res) => {
+router.get('/', auth,role, async (req, res) => {
     try {
         const users = await User.find({})
         res.json(users)
